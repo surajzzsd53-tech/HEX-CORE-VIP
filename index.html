@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEX CORE V.I.P | ANAND 😈</title>
+    
+    <link rel="preload" as="image" href="https://i.ibb.co/8Lw47PK6/IMG-20260108-002002-409.jpg">
+
+    <style>
+        :root {
+            --primary: #00ff88; 
+            --secondary: #8a2be2; 
+            --bg: #03030b; 
+            --accent: #ff6b00; 
+        }
+
+        * { 
+            box-sizing: border-box; 
+            cursor: crosshair; 
+            margin: 0;
+            padding: 0;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        body {
+            background: var(--bg);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            overflow: hidden;
+            padding: 20px;
+            -webkit-touch-callout: none;
+        }
+
+        /* DISABLE SELECTION */
+        body::selection {
+            background: transparent;
+        }
+        body::-moz-selection {
+            background: transparent;
+        }
+
+        /* SECURITY OVERLAY */
+        .security-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(255, 0, 0, 0.05) 0px,
+                rgba(255, 0, 0, 0.05) 1px,
+                transparent 1px,
+                transparent 3px
+            );
+            pointer-events: none;
+            z-index: 9999;
+            display: none;
+        }
+
+        /* SECURITY WARNING */
+        .security-warning {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(255, 0, 0, 0.9);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 11px;
+            z-index: 10000;
+            display: none;
+            animation: alertPulse 1s infinite;
+        }
+
+        @keyframes alertPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* FAKE ANTIVIRUS SCAN */
+        .antivirus-scan {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.95);
+            padding: 30px;
+            border: 3px solid #ff0000;
+            border-radius: 15px;
+            z-index: 10001;
+            display: none;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
+        }
+
+        /* Particle Canvas */
+        #particle-canvas {
+            position: fixed;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* RAINBOW ANIMATIONS (Original) */
+        @keyframes rainbowGlow {
+            0% { box-shadow: 0 0 40px rgba(255, 0, 0, 0.7), 0 0 80px rgba(255, 0, 0, 0.4), inset 0 0 20px rgba(255, 0, 0, 0.2); }
+            16.6% { box-shadow: 0 0 40px rgba(255, 165, 0, 0.7), 0 0 80px rgba(255, 165, 0, 0.4), inset 0 0 20px rgba(255, 165, 0, 0.2); }
+            33.3% { box-shadow: 0 0 40px rgba(255, 255, 0, 0.7), 0 0 80px rgba(255, 255, 0, 0.4), inset 0 0 20px rgba(255, 255, 0, 0.2); }
+            50% { box-shadow: 0 0 40px rgba(0, 255, 0, 0.7), 0 0 80px rgba(0, 255, 0, 0.4), inset 0 0 20px rgba(0, 255, 0, 0.2); }
+            66.6% { box-shadow: 0 0 40px rgba(0, 191, 255, 0.7), 0 0 80px rgba(0, 191, 255, 0.4), inset 0 0 20px rgba(0, 191, 255, 0.2); }
+            83.3% { box-shadow: 0 0 40px rgba(138, 43, 226, 0.7), 0 0 80px rgba(138, 43, 226, 0.4), inset 0 0 20px rgba(138, 43, 226, 0.2); }
+            100% { box-shadow: 0 0 40px rgba(255, 0, 0, 0.7), 0 0 80px rgba(255, 0, 0, 0.4), inset 0 0 20px rgba(255, 0, 0, 0.2); }
+        }
+
+        @keyframes rainbowRotate {
+            0% { border-color: #ff0000; background: linear-gradient(45deg, rgba(255,0,0,0.1), rgba(255,0,0,0.05)); }
+            16.6% { border-color: #ffa500; background: linear-gradient(45deg, rgba(255,165,0,0.1), rgba(255,165,0,0.05)); }
+            33.3% { border-color: #ffff00; background: linear-gradient(45deg, rgba(255,255,0,0.1), rgba(255,255,0,0.05)); }
+            50% { border-color: #00ff00; background: linear-gradient(45deg, rgba(0,255,0,0.1), rgba(0,255,0,0.05)); }
+            66.6% { border-color: #00bfff; background: linear-gradient(45deg, rgba(0,191,255,0.1), rgba(0,191,255,0.05)); }
+            83.3% { border-color: #8a2be2; background: linear-gradient(45deg, rgba(138,43,226,0.1), rgba(138,43,226,0.05)); }
+            100% { border-color: #ff0000; background: linear-gradient(45deg, rgba(255,0,0,0.1), rgba(255,0,0,0.05)); }
+        }
+
+        @keyframes floatUpDown {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(1deg); }
+        }
+
+        .main-card {
+            width: 95%; max-width: 480px; background: rgba(10, 10, 25, 0.92);
+            border: 4px solid #ff0000; border-radius: 25px; padding: 30px;
+            text-align: center; position: relative; animation: rainbowRotate 6s linear infinite, floatUpDown 8s ease-in-out infinite;
+            backdrop-filter: blur(15px); z-index: 10;
+        }
+
+        .main-card::before {
+            content: ''; position: absolute; top: -6px; left: -6px; right: -6px; bottom: -6px;
+            background: linear-gradient(45deg, #ff0000, #ffa500, #ffff00, #00ff00, #00bfff, #8a2be2, #ff0000);
+            background-size: 400% 400%; border-radius: 30px; z-index: -1;
+            animation: rainbowGlow 4s linear infinite, gradientShift 8s ease infinite; opacity: 0.7;
+        }
+
+        @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        .logo-section {
+            width: 100px; height: 100px; margin: -80px auto 20px; background: #000; border: 4px solid #fff; border-radius: 50%;
+            overflow: hidden; display: flex; align-items: center; justify-content: center;
+            animation: rainbowRotate 8s linear infinite, floatUpDown 5s ease-in-out infinite;
+            box-shadow: 0 0 30px rgba(255,255,255,0.3); position: relative; z-index: 20;
+        }
+        
+        .logo-section img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            display: block; 
+            border-radius: 50%; 
+            animation: pulseImage 3s ease-in-out infinite;
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+        }
+
+        @keyframes pulseImage { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.05); opacity: 0.9; } }
+
+        .owner-badge {
+            background: linear-gradient(90deg, #ff0000, #ffa500, #ffff00, #00ff00, #00bfff, #8a2be2, #ff0000);
+            background-size: 400% 400%; padding: 10px 30px; border-radius: 50px; display: inline-block;
+            font-size: 15px; font-weight: 900; text-transform: uppercase; margin-bottom: 15px;
+            animation: gradientShift 3s linear infinite; color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.8);
+        }
+
+        .user-info {
+            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; background: rgba(255, 255, 255, 0.05);
+            padding: 18px 12px; border-radius: 15px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.1); font-size: 12px; font-weight: bold;
+        }
+
+        .info-box span { display: block; color: var(--primary); font-size: 14px; margin-top: 6px; text-shadow: 0 0 10px var(--primary); font-weight: 900; }
+
+        /* TERMINAL RED & RAINBOW (Fixed Request) */
+        .terminal {
+            background: rgba(0, 0, 0, 0.85); border: 2px solid #ff0000; /* Red Border */
+            height: 120px; margin-bottom: 25px; padding: 15px;
+            font-family: 'Courier New', monospace; font-size: 11px; text-align: left;
+            overflow: hidden; border-radius: 12px; position: relative;
+        }
+
+        .btn-main {
+            width: 100%; padding: 20px; background: linear-gradient(45deg, #ff0000, #ffa500, #ffff00); background-size: 300% 300%;
+            color: #fff; border: none; border-radius: 15px; font-weight: 900; text-transform: uppercase;
+            cursor: pointer; transition: 0.3s; font-size: 17px; box-shadow: 0 5px 25px rgba(255,0,0,0.4); animation: gradientShift 3s linear infinite;
+        }
+
+        .result-box {
+            display: none; background: rgba(0,0,0,0.7); padding: 25px; border-radius: 20px;
+            border: 3px dashed var(--primary); margin-top: 25px;
+        }
+
+        .key-text {
+            font-size: 1.8rem; color: #fff; display: block; margin: 20px 0; padding: 20px;
+            background: rgba(0,0,0,0.5); border-radius: 10px; text-shadow: 0 0 20px var(--primary); 
+            border: 2px solid var(--primary); font-family: 'Courier New', monospace; font-weight: 900;
+        }
+
+        .social-grid { display: flex; gap: 15px; margin-top: 25px; }
+        .social-btn { flex: 1; padding: 15px; border-radius: 10px; border: 2px solid #fff; background: transparent; color: #fff; font-size: 12px; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <!-- SECURITY ELEMENTS -->
+    <div class="security-overlay" id="securityOverlay"></div>
+    <div class="security-warning" id="securityWarning">⚠️ SECURITY ALERT: Inspection Detected</div>
+    
+    <div class="antivirus-scan" id="antivirusScan">
+        <h3 style="color:#ff0000; margin-bottom:20px;">🔒 HEX CORE SECURITY SCAN</h3>
+        <div id="scanLog" style="font-family:'Courier New'; font-size:12px; color:#00ff88; height:200px; overflow-y:auto;">
+            <div>> Initializing security scan...</div>
+        </div>
+        <div style="margin-top:20px;">
+            <div style="width:100%; height:8px; background:#333; border-radius:4px; overflow:hidden;">
+                <div id="scanProgress" style="width:0%; height:100%; background:linear-gradient(90deg, #ff0000, #00ff00); transition:0.3s;"></div>
+            </div>
+            <div style="text-align:center; margin-top:10px; font-size:12px; color:#aaa;" id="scanStatus">Scanning: 0%</div>
+        </div>
+    </div>
+
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="main-card">
+        <div class="logo-section">
+            <img src="https://i.ibb.co/8Lw47PK6/IMG-20260108-002002-409.jpg" alt="LOGO">
+        </div>
+
+        <div class="owner-badge">OWNER: ANAND 😈</div>
+        <h2 style="margin:10px 0; letter-spacing: 2px; text-shadow: 0 0 20px var(--primary);">HEX CORE VIP</h2>
+
+        <div class="user-info">
+            <div class="info-box">LIVE<span id="onlineCount">1,000+</span></div>
+            <div class="info-box">USER<span>10M+</span> </div>
+            <div class="info-box">PING<span id="pingVal">-- ms</span></div>
+        </div>
+
+        <div class="terminal" id="term">
+            <div id="term-content">
+                <div style="color:#ff0000">> [+] SYSTEM READY</div>
+                <div style="color:#00ff88">> [+] SECURITY: ACTIVE</div>
+                <div style="color:#00ff88">> [+] WAITING FOR INPUT...</div>
+            </div>
+        </div>
+
+        <div id="action-area">
+            <button class="btn-main" onclick="startFlow()">GENERATE ACCESS KEY</button>
+        </div>
+
+        <div id="procBar" style="display:none; margin:25px 0;">
+            <div style="color:var(--accent); font-weight:bold; font-size: 15px;">BYPASSING: <span id="timer">30</span>s</div>
+            <div style="width:100%; height:12px; background:#111; border-radius:10px; margin-top:15px; overflow:hidden;">
+                <div id="pBar" style="width:0%; height:100%; background:linear-gradient(90deg, #ff0000, #ffa500, #ffff00, #00ff00, #00bfff, #8a2be2); background-size: 400% 100%; transition:1s linear;"></div>
+            </div>
+        </div>
+
+        <div id="result-area" class="result-box">
+            <span style="font-size:14px; color:#aaa; display:block; margin-bottom:10px;">VIP KEY UNLOCKED ✅</span>
+            <span class="key-text" id="keyOutput">...</span>
+            <button class="btn-main" onclick="copyKey()" style="background:linear-gradient(45deg, #00ff00, #00bfff);">COPY KEY</button>
+        </div>
+
+        <div class="social-grid">
+            <button class="social-btn" style="border-color:#0088cc; color:#0088cc;" onclick="window.open('https://t.me/+4N0Gp0aCxIs3MjZl')">TELEGRAM</button>
+            <button class="social-btn" style="border-color:#ff0000; color:#ff0000;" onclick="window.open('https://youtube.com/@akbhexcoreofc1')">YOUTUBE</button>
+        </div>
+    </div>
+
+    <script>
+        const myShortLink = "https://earnlinks.in/A8Zqu";
+        const keys = ["vs18ff-168-om0a4", "vs18ff-168-uY0kH", "vs18ff-168-4EX9d", "vs18ff-168-nwKQ0"];
+        const rainbowColors = ['#ff0000', '#ffa500', '#ffff00', '#00ff00', '#00bfff', '#8a2be2'];
+
+        // RIGHT-CLICK DISABLE + SECURITY FEATURES
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            showSecurityAlert();
+            return false;
+        });
+
+        // DISABLE KEYBOARD SHORTCUTS
+        document.addEventListener('keydown', function(e) {
+            // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+            if(e.key === 'F12' || 
+               (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || 
+               (e.ctrlKey && e.key === 'u')) {
+                e.preventDefault();
+                showSecurityAlert();
+                simulateAntivirusScan();
+                return false;
+            }
+        });
+
+        // DISABLE DRAG & DROP
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        document.addEventListener('drop', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // SECURITY ALERT FUNCTION
+        function showSecurityAlert() {
+            const warning = document.getElementById('securityWarning');
+            const overlay = document.getElementById('securityOverlay');
+            
+            warning.style.display = 'block';
+            overlay.style.display = 'block';
+            
+            // Add security breach log
+            addLog("⚠️ SECURITY BREACH DETECTED!");
+            addLog("🔒 Countermeasures activated...");
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                warning.style.display = 'none';
+                overlay.style.display = 'none';
+            }, 3000);
+        }
+
+        // FAKE ANTIVIRUS SCAN
+        function simulateAntivirusScan() {
+            const scanDiv = document.getElementById('antivirusScan');
+            const scanLog = document.getElementById('scanLog');
+            const progress = document.getElementById('scanProgress');
+            const status = document.getElementById('scanStatus');
+            
+            scanDiv.style.display = 'block';
+            scanLog.innerHTML = '> Initializing security scan...<br>';
+            
+            const threats = [
+                "Trojan.Win32.Generic",
+                "Riskware.HackTool.HexCore",
+                "Adware.Popup.Generic",
+                "Exploit.JS.Dropper",
+                "Backdoor.Botnet.Agent"
+            ];
+            
+            let scanPercent = 0;
+            const scanInterval = setInterval(() => {
+                scanPercent += 2;
+                progress.style.width = scanPercent + '%';
+                status.textContent = `Scanning: ${scanPercent}%`;
+                
+                if(scanPercent % 10 === 0) {
+                    const randomThreat = threats[Math.floor(Math.random() * threats.length)];
+                    scanLog.innerHTML += `> Scanning C:/Windows/System32/${Math.random().toString(36).substr(2, 8)}.dll<br>`;
+                    scanLog.innerHTML += `> Found: ${randomThreat}<br>`;
+                    scanLog.innerHTML += `> Status: Quarantined<br><br>`;
+                    scanLog.scrollTop = scanLog.scrollHeight;
+                }
+                
+                if(scanPercent >= 100) {
+                    clearInterval(scanInterval);
+                    setTimeout(() => {
+                        scanLog.innerHTML += '> Scan completed successfully!<br>';
+                        scanLog.innerHTML += '> System secured.<br>';
+                        scanLog.scrollTop = scanLog.scrollHeight;
+                        
+                        setTimeout(() => {
+                            scanDiv.style.display = 'none';
+                        }, 2000);
+                    }, 500);
+                }
+            }, 100);
+        }
+
+        // RANDOM SECURITY CHECKS
+        setInterval(() => {
+            if(Math.random() > 0.7) {
+                const messages = [
+                    "[SYSTEM] Security protocols verified",
+                    "[DEFENSE] Firewall active",
+                    "[SCAN] Memory integrity check passed",
+                    "[NETWORK] Connection encrypted"
+                ];
+                addLog(messages[Math.floor(Math.random() * messages.length)]);
+            }
+        }, 10000);
+
+        function addLog(msg) {
+            const container = document.getElementById('term-content');
+            const line = document.createElement('div');
+            line.style.color = rainbowColors[Math.floor(Math.random() * rainbowColors.length)];
+            line.innerHTML = `> ${msg}`;
+            container.appendChild(line);
+            document.getElementById('term').scrollTop = document.getElementById('term').scrollHeight;
+        }
+
+        window.onload = () => {
+            // Initial security check
+            addLog("[SECURITY] System initialized");
+            addLog("[SECURITY] Anti-tamper active");
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            if(urlParams.get('verify') === 'true') {
+                document.getElementById('action-area').style.display = 'none';
+                document.getElementById('result-area').style.display = 'block';
+                document.getElementById('keyOutput').innerText = keys[Math.floor(Math.random() * keys.length)];
+                addLog("ACCESS GRANTED: WELCOME VIP USER");
+            }
+        };
+
+        function startFlow() {
+            document.getElementById('action-area').style.display = 'none';
+            document.getElementById('procBar').style.display = 'block';
+            let time = 30;
+            
+            // Start security scan
+            addLog("[SECURITY] Starting bypass sequence...");
+            addLog("[FIREWALL] Bypassing layer 1...");
+            
+            const logInterval = setInterval(() => {
+                const logs = [
+                    "Bypassing node 0x77...",
+                    "Decrypting security packets...",
+                    "Injecting payload...",
+                    "Overriding firewall rules...",
+                    "Spoofing MAC address...",
+                    "Cloaking IP address..."
+                ];
+                addLog(logs[Math.floor(Math.random()*logs.length)] + " [" + Math.floor(Math.random()*999) + "]");
+                
+                // Random security alerts
+                if(Math.random() > 0.8) {
+                    addLog("⚠️ SECURITY ALERT: Anomaly detected!");
+                }
+            }, 150);
+
+            const timer = setInterval(() => {
+                time--;
+                document.getElementById('timer').innerText = time;
+                document.getElementById('pBar').style.width = ((30-time)/30 * 100) + "%";
+                
+                if(time <= 0) {
+                    clearInterval(timer); 
+                    clearInterval(logInterval);
+                    addLog("[SUCCESS] Bypass complete!");
+                    addLog("[REDIRECT] Securing connection...");
+                    
+                    // Show final security message before redirect
+                    setTimeout(() => {
+                        window.location.href = myShortLink;
+                    }, 1000);
+                }
+            }, 1000);
+        }
+
+        function copyKey() {
+            navigator.clipboard.writeText(document.getElementById('keyOutput').innerText).then(() => { 
+                alert("✅ KEY COPIED TO CLIPBOARD!"); 
+                addLog("[SYSTEM] Key copied successfully");
+            });
+        }
+
+        // --- ORIGINAL PARTICLE SYSTEM ---
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resize); resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = (Math.random() - 0.5) * 2;
+                this.speedY = (Math.random() - 0.5) * 2;
+                this.color = rainbowColors[Math.floor(Math.random() * rainbowColors.length)];
+            }
+            update() {
+                this.x += this.speedX; this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.beginPath(); ctx.fillStyle = this.color;
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+            }
+        }
+        for (let i = 0; i < 150; i++) particles.push(new Particle());
+
+        function animate() {
+            ctx.fillStyle = 'rgba(3, 3, 11, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        setInterval(() => { 
+            document.getElementById('onlineCount').innerText = (1000 + Math.floor(Math.random()*500)).toLocaleString() + "+";
+            document.getElementById('pingVal').innerText = 15 + Math.floor(Math.random()*30) + " ms";
+        }, 2000);
+
+        // Additional security: Prevent iframe embedding
+        if (window.top !== window.self) {
+            document.body.innerHTML = '<h1 style="color:red; text-align:center; margin-top:50px;">⚠️ SECURITY ALERT: Frame embedding not allowed</h1>';
+        }
+    </script>
+</body>
+</html>  isme karo ok
